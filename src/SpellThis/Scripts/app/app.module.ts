@@ -4,12 +4,12 @@ import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";  
 import "rxjs/Rx";
 
-import {AppComponent} from "./app.component";
+import { WordListComponent } from "./word-list.component";
 
 @NgModule({
     // directives, components, and pipes
     declarations: [
-        AppComponent
+        WordListComponent
     ],
     // modules
     imports: [
@@ -20,7 +20,7 @@ import {AppComponent} from "./app.component";
     providers: [
     ],
     bootstrap: [
-        AppComponent
+        WordListComponent
     ]
 })
 export class AppModule { }  

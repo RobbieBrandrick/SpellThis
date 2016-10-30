@@ -9,8 +9,9 @@
 /// Define paths
 var srcPaths = {
     app: ['Scripts/app/main.ts', 'Scripts/app/**/*.ts'],
+    html:[ 'Scripts/app/**/*.html'],
     js: [
-        'Scripts/js/**/*.js',
+        'Scripts/js/**/*.js',        
         'node_modules/core-js/client/shim.min.js',
         'node_modules/zone.js/dist/zone.js',
         'node_modules/reflect-metadata/Reflect.js',
@@ -34,9 +35,14 @@ var destPaths = {
     js_rxjs: 'wwwroot/js/rxjs/'
 };
 
+gulp.task("copy_html", ['app_clean'], function () {
+    return gulp.src(srcPaths.html)
+        .pipe(gulp.dest(destPaths.app));
+})
+
 // Compile, minify and create sourcemaps all TypeScript files 
 // and place them to wwwroot/app, together with their js.map files.
-gulp.task('app', ['app_clean'], function () {
+gulp.task('app', ['app_clean', 'copy_html'], function () {
     return gulp.src(srcPaths.app)
         .pipe(gp_sourcemaps.init())
         .pipe(gp_typescript(require('./tsconfig.json').compilerOptions))
