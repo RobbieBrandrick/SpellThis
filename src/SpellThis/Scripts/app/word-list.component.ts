@@ -1,17 +1,24 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 
 import { Word } from './word';
-
-const WORDS: Word[] = [
-    { name: 'pizza' },
-    { name: 'taco' }
-]
+import { WordService } from './word.service';
 
 @Component({
     moduleId: module.id,
     selector: 'word-list',
-    templateUrl: 'word-list.component.html'
+    templateUrl: 'word-list.component.html',
+    providers: [WordService]
 })
-export class WordListComponent {
-    words: Word[] = WORDS;
+export class WordListComponent implements OnInit {
+    words: Word[];
+
+    constructor(private wordService: WordService) {
+
+    }
+
+    ngOnInit(): void {
+        this.wordService
+            .getAll()
+            .then(words => this.words = words);
+    }
 }

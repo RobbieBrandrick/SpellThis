@@ -9,21 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var WORDS = [
-    { name: 'pizza' },
-    { name: 'taco' }
-];
+var word_service_1 = require('./word.service');
 var WordListComponent = (function () {
-    function WordListComponent() {
-        this.words = WORDS;
+    function WordListComponent(wordService) {
+        this.wordService = wordService;
     }
+    WordListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.wordService
+            .getAll()
+            .then(function (words) { return _this.words = words; });
+    };
     WordListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'word-list',
-            templateUrl: 'word-list.component.html'
+            templateUrl: 'word-list.component.html',
+            providers: [word_service_1.WordService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [word_service_1.WordService])
     ], WordListComponent);
     return WordListComponent;
 }());
