@@ -21,4 +21,9 @@ export class WordListComponent implements OnInit {
             .getAll()
             .then(words => this.words = words);
     }
+
+    play(word: Word): void {
+        console.log(`${word.name} has been played.`)
+    }
+
 }

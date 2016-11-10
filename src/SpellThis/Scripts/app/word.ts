@@ -3,4 +3,5 @@
     name: string;
     lastAttempted: any;
     nextAttempt: any;
+
 }

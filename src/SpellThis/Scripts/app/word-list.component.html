@@ -36,6 +36,9 @@
                     <td>
                         {{word.nextAttempt | date: 'MM/dd/yyyy'}}
                     </td>
+                    <td>
+                        <button class="btn btn-default" (click)="play(word);" >Play</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

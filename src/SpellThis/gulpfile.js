@@ -1,4 +1,4 @@
-﻿/// <binding AfterBuild='default' Clean='clean' />
+﻿///// <binding AfterBuild='default' Clean='clean' />
 
 var gulp = require('gulp'),
     gp_clean = require('gulp-clean'),
@@ -32,7 +32,7 @@ var srcPaths = {
 };
 
 var destPaths = {
-    app: 'wwwroot/app/',
+    app: 'wwwroot/app/',    
     js: 'wwwroot/js/',
     js_angular: 'wwwroot/js/@angular/',
     js_rxjs: 'wwwroot/js/rxjs/',
@@ -79,8 +79,8 @@ gulp.task('js', function () {
 
 // Watch specified files and define what to do upon file changes
 gulp.task('watch', function () {
-    gulp.watch([srcPaths.app, srcPaths.js, srcPaths.html], ['app', 'js', 'html']);
+    gulp.watch([srcPaths.app, srcPaths.js, srcPaths.html], ['app', 'js']);
 });
 
 // Define the default task so it will launch all other tasks
-gulp.task('default', ['app', 'js']);
+gulp.task('default', ['app', 'js', 'watch']);

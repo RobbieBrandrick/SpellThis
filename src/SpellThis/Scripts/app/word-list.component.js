@@ -20,6 +20,9 @@ var WordListComponent = (function () {
             .getAll()
             .then(function (words) { return _this.words = words; });
     };
+    WordListComponent.prototype.play = function (word) {
+        console.log(word.name + " has been played.");
+    };
     WordListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

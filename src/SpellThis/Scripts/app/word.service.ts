@@ -8,8 +8,8 @@ import { Word } from './word';
 @Injectable()
 export class WordService {
 
-    private wordURL = 'http://localhost:60000/api/spellthis';
-    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private wordURL = 'http://localhost:32771/api/spellthis';
+    private headers = new Headers([{ 'Content-Type': 'application/json' }, { 'Access-Control-Allow-Origin': '*' }]);
 
     constructor(private http: Http) {
 

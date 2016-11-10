@@ -14,8 +14,8 @@ require('rxjs/add/operator/toPromise');
 var WordService = (function () {
     function WordService(http) {
         this.http = http;
-        this.wordURL = 'http://localhost:60000/api/spellthis';
-        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.wordURL = 'http://localhost:32771/api/spellthis';
+        this.headers = new http_1.Headers([{ 'Content-Type': 'application/json' }, { 'Access-Control-Allow-Origin': '*' }]);
     }
     WordService.prototype.getAll = function () {
         return this.http
