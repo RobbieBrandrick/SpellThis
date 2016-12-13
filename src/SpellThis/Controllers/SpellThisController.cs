@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using SpellThis.Repositories;
 using SpellThis.Models;
@@ -17,6 +14,9 @@ namespace SpellThis.Controllers
 
         IWordRepository _wordRepository;
 
+        /// <summary>
+        /// Set up controllers dependencies
+        /// </summary>
         public SpellThisController(IWordRepository wordRepository)
         {
 
@@ -24,6 +24,10 @@ namespace SpellThis.Controllers
 
         }
         
+        /// <summary>
+        /// Get all the words in the repository
+        /// </summary>
+        /// <returns>All the words in the repository</returns>
         [HttpGet]
         public IEnumerable<Word> GetAll()
         {

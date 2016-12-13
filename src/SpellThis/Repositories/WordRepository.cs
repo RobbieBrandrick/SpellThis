@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpellThis.Repositories
 {
     public interface IWordRepository
     {
 
+        /// <summary>
+        /// Get all the words
+        /// </summary>
+        /// <returns>All the words</returns>
         IEnumerable<Word> GetAll();
 
     }
@@ -16,6 +19,10 @@ namespace SpellThis.Repositories
     public class WordRepository : IWordRepository
     {
 
+        /// <summary>
+        /// Get all the words
+        /// </summary>
+        /// <returns>All the words</returns>
         public IEnumerable<Word> GetAll()
         {
 
