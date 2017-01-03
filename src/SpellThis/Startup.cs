@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SpellThis.Data;
 using SpellThis.Repositories;
 
 namespace SpellThis
@@ -31,8 +34,19 @@ namespace SpellThis
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceCollection services)
         {
+
+            string spellThisConnectionString = Configuration.GetConnectionString("SpellThisDbContext");
+
+            services.AddEntityFrameworkNpgsql()
+                    .AddDbContext<SpellThisDbContext>(options =>
+                    options.UseNpgsql(
+                        spellThisConnectionString, 
+                        b => b.MigrationsAssembly("SpellThis")
+                    )
+                );
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             
