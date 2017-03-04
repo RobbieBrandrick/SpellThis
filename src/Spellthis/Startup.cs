@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Spellthis.Repositories;
 
 namespace Spellthis
 {
@@ -18,6 +19,8 @@ namespace Spellthis
         {
 
             services.AddMvc();
+
+            services.AddScoped<IWordsRepository, WordsRepository>();
 
         }
 

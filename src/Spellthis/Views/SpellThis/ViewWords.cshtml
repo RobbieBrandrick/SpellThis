@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Spellthis.Models.Word>
+@{
+}
+<style>
+    .glyphicon{
+        font-size: 25px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <h2>
+            View Words            
+        </h2>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.AddDate)
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td></td>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var word in Model)
+                {
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => word.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => word.AddDate)
+                        </td>
+                        <td class="grid-icon">
+                            <span class="glyphicon glyphicon-play-circle" title="Pronunciate Word"></span>
+                        </td>
+                        <td class="grid-icon">
+                            <span class="glyphicon glyphicon-list-alt" title="View Definition"></span>
+                        </td>
+                        <td class="grid-icon">
+                            <span class="glyphicon glyphicon-remove" title="Remove Word"></span>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
