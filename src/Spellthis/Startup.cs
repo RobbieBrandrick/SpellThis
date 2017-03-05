@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Spellthis.Repositories;
 using Microsoft.Extensions.Configuration;
 using Spellthis.Models;
+using Spellthis.Services;
 
 namespace Spellthis
 {
@@ -18,16 +19,24 @@ namespace Spellthis
 
         public IConfiguration Configuration { get; set; }
 
+        public Startup(IHostingEnvironment env)
+        {
+
+            SetUpConfigurations(env.ContentRootPath);
+
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddMvc();
-
-            services.AddScoped<IWordsRepository, WordsRepository>();
             services.AddOptions();
             services.Configure<TTSConfigurations>(Configuration.GetSection("TextToSpeech"));
+            services.AddSingleton<IWordsRepository, WordsRepository>();
+            services.AddScoped<ITextToSpeechService, TextToSpeechService>();
+            services.AddScoped<ISpellThisService, SpellThisService>();
 
         }
 
@@ -36,7 +45,6 @@ namespace Spellthis
         {
             loggerFactory.AddConsole();
 
-            SetUpConfigurations(env.ContentRootPath);
 
             if (env.IsDevelopment())
             {

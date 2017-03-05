@@ -7,15 +7,27 @@ namespace Spellthis.Repositories
     public interface IWordsRepository
     {
 
+        /// <summary>
+        /// Retrieves all the words
+        /// </summary>
+        /// <returns>All the words</returns>
         List<Word> GetAll();
 
+        /// <summary>
+        /// Adds a word to the repository
+        /// </summary>
+        /// <param name="word">Word to add to the repository</param>     
+        void Add(Word word);
     }
 
     public class WordsRepository : IWordsRepository
     {
-        public List<Word> GetAll()
+
+        private List<Word> _words;
+
+        public WordsRepository()
         {
-            return new List<Word>()
+            _words = new List<Word>()
             {
                 new Word
                 {
@@ -37,5 +49,24 @@ namespace Spellthis.Repositories
                 },
             };
         }
+
+        /// <summary>
+        /// Adds a word to the repository
+        /// </summary>
+        /// <param name="word">Word to add to the repository</param>
+        public void Add(Word word)
+        {
+            _words.Add(word);
+        }
+
+        /// <summary>
+        /// Retrieves all the words
+        /// </summary>
+        /// <returns>All the words</returns>
+        public List<Word> GetAll()
+        {
+            return _words;
+        }
     }
+
 }

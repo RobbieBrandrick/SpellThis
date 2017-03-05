@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Spellthis.Repositories;
 using Spellthis.Models;
+using Spellthis.Services;
 
 namespace Spellthis.Controllers
 {
     public class SpellThisController : Controller
     {
 
-        IWordsRepository _wordsRepository;
+        private ISpellThisService _spellThisService;
 
-        public SpellThisController(IWordsRepository wordsRepository)
+        public SpellThisController(ISpellThisService spellThisService)
         {
 
-            if (wordsRepository == null) throw new InvalidOperationException("wordsRepository cannot be null");
+            if (spellThisService == null) throw new InvalidOperationException("spellThisService cannot be null");
 
-            _wordsRepository = wordsRepository;
+            _spellThisService = spellThisService;
 
         }
 
@@ -29,7 +30,7 @@ namespace Spellthis.Controllers
         public IActionResult ViewWords()
         {
 
-            List<Word> words = _wordsRepository.GetAll();
+            IEnumerable<Word> words = _spellThisService.GetSpellingWords();
 
             return View(words);
 
