@@ -1,0 +1,37 @@
+﻿
+<div class="row">
+
+    <div class="col-sm-12">
+        <h2>Add New Word</h2>
+        <hr />
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="form-horizontal">
+
+            <form asp-controller="SpellThis" asp-action="AddWord">
+
+                <div class="form-group">
+                    <label for="word" class="control-label col-sm-2">Word</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Enter new word" name="Word" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button type="submit" class="btn btn-primary">Add Word</button>
+                        <button type="submit" class="btn btn-default">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>

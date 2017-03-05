@@ -2,15 +2,22 @@
 using Spellthis.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Spellthis.Services
 {
 
     public interface ISpellThisService
     {
+        /// <summary>
+        /// Get the user's spelling words
+        /// </summary>
+        /// <returns>User's spelling words</returns>
         IEnumerable<Word> GetSpellingWords();
+
+        /// <summary>
+        /// Adds the spelling word to the users list
+        /// </summary>
+        /// <param name="word">Word to add</param>
         Word AddSpellingWord(string word);
     }
 
