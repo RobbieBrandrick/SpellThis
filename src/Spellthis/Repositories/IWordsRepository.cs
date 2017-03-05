@@ -1,6 +1,9 @@
 ﻿using Spellthis.Models;
 using System.Collections.Generic;
 using System;
+using Microsoft.EntityFrameworkCore;
+using Spellthis.Data;
+using System.Linq;
 
 namespace Spellthis.Repositories
 {
@@ -11,7 +14,7 @@ namespace Spellthis.Repositories
         /// Retrieves all the words
         /// </summary>
         /// <returns>All the words</returns>
-        List<Word> GetAll();
+        IQueryable<Word> GetAll();
 
         /// <summary>
         /// Adds a word to the repository
@@ -22,32 +25,14 @@ namespace Spellthis.Repositories
 
     public class WordsRepository : IWordsRepository
     {
+        
+        private SpellThisContext _dbContext;
 
-        private List<Word> _words;
-
-        public WordsRepository()
+        public WordsRepository(SpellThisContext dbContext)
         {
-            _words = new List<Word>()
-            {
-                new Word
-                {
-                    Id = 1,
-                    Name = "Curmudgeon",
-                    AddDate = DateTime.Now
-                },
-                new Word
-                {
-                    Id = 2,
-                    Name = "Anaphylaxis",
-                    AddDate = DateTime.Now
-                },
-                new Word
-                {
-                    Id = 3,
-                    Name = "Meteorological",
-                    AddDate = DateTime.Now
-                },
-            };
+
+            _dbContext = dbContext;
+
         }
 
         /// <summary>
@@ -56,16 +41,21 @@ namespace Spellthis.Repositories
         /// <param name="word">Word to add to the repository</param>
         public void Add(Word word)
         {
-            _words.Add(word);
+
+            _dbContext.Words.Add(word);
+            _dbContext.SaveChanges();
+
         }
 
         /// <summary>
         /// Retrieves all the words
         /// </summary>
         /// <returns>All the words</returns>
-        public List<Word> GetAll()
+        public IQueryable<Word> GetAll()
         {
-            return _words;
+
+            return _dbContext.Words;
+
         }
     }
 

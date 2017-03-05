@@ -1,7 +1,9 @@
-﻿using Spellthis.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Spellthis.Models;
 using Spellthis.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Spellthis.Services
 {
@@ -12,7 +14,7 @@ namespace Spellthis.Services
         /// Get the user's spelling words
         /// </summary>
         /// <returns>User's spelling words</returns>
-        IEnumerable<Word> GetSpellingWords();
+        Task<IEnumerable<Word>> GetSpellingWords();
 
         /// <summary>
         /// Adds the spelling word to the users list
@@ -43,10 +45,10 @@ namespace Spellthis.Services
         /// Get the user's spelling words
         /// </summary>
         /// <returns>User's spelling words</returns>
-        public IEnumerable<Word> GetSpellingWords()
+        public async Task<IEnumerable<Word>> GetSpellingWords()
         {
 
-            List<Word> spellingWords = _wordsRepository.GetAll();
+            List<Word> spellingWords = await _wordsRepository.GetAll().ToListAsync();
 
             return spellingWords;
 

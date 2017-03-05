@@ -11,6 +11,8 @@ using Spellthis.Repositories;
 using Microsoft.Extensions.Configuration;
 using Spellthis.Models;
 using Spellthis.Services;
+using Spellthis.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Spellthis
 {
@@ -38,10 +40,12 @@ namespace Spellthis
             services.AddScoped<ITextToSpeechService, TextToSpeechService>();
             services.AddScoped<ISpellThisService, SpellThisService>();
 
+            services.AddDbContext<SpellThisContext>(options => options.UseSqlite("Filename=./SpellThis.db"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, SpellThisContext spellThisContext)
         {
             loggerFactory.AddConsole();
 
@@ -60,6 +64,8 @@ namespace Spellthis
                     template: "{controller=SpellThis}/{action=Index}/{id?}"
                 );
             });
+
+            SpellThisDbInitializer.Initialize(spellThisContext);
 
         }
 

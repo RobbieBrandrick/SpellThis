@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Spellthis.Models;
 using Spellthis.Services;
+using System.Threading.Tasks;
 
 namespace Spellthis.Controllers
 {
@@ -27,10 +28,10 @@ namespace Spellthis.Controllers
         /// View the users words
         /// </summary>
         /// <returns>Users words</returns>
-        public IActionResult ViewWords()
+        public async Task<IActionResult> ViewWords()
         {
 
-            IEnumerable<Word> words = _spellThisService.GetSpellingWords();
+            IEnumerable<Word> words = await _spellThisService.GetSpellingWords();
 
             return View(words);
 
