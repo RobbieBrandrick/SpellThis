@@ -36,6 +36,13 @@ namespace Spellthis.Services
             ITextToSpeechService ttsService)
         {
 
+            if(wordsRepository == null)
+                throw new InvalidOperationException("wordsRepository cannot be null");
+
+            if (ttsService == null)
+                throw new InvalidOperationException("ttsService cannot be null");
+
+
             _wordsRepository = wordsRepository;
             _ttsService = ttsService;
 
@@ -48,7 +55,18 @@ namespace Spellthis.Services
         public async Task<IEnumerable<Word>> GetSpellingWords()
         {
 
-            List<Word> spellingWords = await _wordsRepository.GetAll().ToListAsync();
+            List<Word> spellingWords = null;
+
+            try
+            {
+
+                spellingWords = await _wordsRepository.GetAll().ToListAsync();
+
+            }
+            catch(Exception ex)
+            {
+                //TODO:Add Logging
+            }
 
             return spellingWords;
 

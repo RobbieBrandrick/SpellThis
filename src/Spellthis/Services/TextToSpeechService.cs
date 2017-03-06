@@ -29,7 +29,12 @@ namespace Spellthis.Services
         /// </summary>
         public TextToSpeechService(IOptions<TTSConfigurations> configurations)
         {
+
+            if (configurations == null)
+                throw new InvalidOperationException("configurations cannot be null");
+
             _configurations = configurations.Value;
+
         }
 
         /// <summary>
@@ -39,6 +44,13 @@ namespace Spellthis.Services
         /// <param name="audioFileLocation">Location of where the audio file will be created</param>
         public async Task CreateAudioFile(string text, string audioFileLocation)
         {
+
+            if(string.IsNullOrWhiteSpace(text))
+                throw new InvalidOperationException("text cannot be null");
+
+            if (string.IsNullOrWhiteSpace(audioFileLocation))
+                throw new InvalidOperationException("audioFileLocation cannot be null");
+
             var client = new HttpClient();
 
             string ttsUrl = $"https://api.voicerss.org/?key={_configurations.APIKey}&hl=en-us&src=" + text;

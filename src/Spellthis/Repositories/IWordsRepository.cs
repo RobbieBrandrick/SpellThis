@@ -28,8 +28,14 @@ namespace Spellthis.Repositories
         
         private SpellThisContext _dbContext;
 
+        /// <summary>
+        /// Sets up classes dependencies
+        /// </summary>
         public WordsRepository(SpellThisContext dbContext)
         {
+
+            if (dbContext == null)
+                throw new InvalidOperationException("dbContext cannot be null");
 
             _dbContext = dbContext;
 
