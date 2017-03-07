@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Spellthis.Models;
 using Spellthis.Repositories;
 using System;
@@ -28,12 +29,14 @@ namespace Spellthis.Services
 
         private IWordsRepository _wordsRepository;
         private ITextToSpeechService _ttsService;
+        private ILogger _logger;
 
         /// <summary>
         /// Set up classes dependencies
         /// </summary>
         public SpellThisService(IWordsRepository wordsRepository,
-            ITextToSpeechService ttsService)
+            ITextToSpeechService ttsService,
+            ILogger<SpellThisService> logger)
         {
 
             if(wordsRepository == null)
@@ -42,9 +45,13 @@ namespace Spellthis.Services
             if (ttsService == null)
                 throw new InvalidOperationException("ttsService cannot be null");
 
+            if (logger == null)
+                throw new InvalidOperationException("logger cannot be null");
+
 
             _wordsRepository = wordsRepository;
             _ttsService = ttsService;
+            _logger = logger;
 
         }
 
@@ -54,21 +61,22 @@ namespace Spellthis.Services
         /// <returns>User's spelling words</returns>
         public async Task<IEnumerable<Word>> GetSpellingWords()
         {
-
-            List<Word> spellingWords = null;
-
+            
             try
             {
 
-                spellingWords = await _wordsRepository.GetAll().ToListAsync();
+                List<Word> spellingWords = await _wordsRepository.GetAll().ToListAsync();
+
+                return spellingWords;
 
             }
             catch(Exception ex)
             {
-                //TODO:Add Logging
-            }
 
-            return spellingWords;
+                _logger.LogError($"An unknown exception has occurred: {ex}");
+                throw ex;
+
+            }
 
         }
 
@@ -98,10 +106,11 @@ namespace Spellthis.Services
             }
             catch(Exception ex)
             {
-                //TODO:Add logging
-            }
 
-            return null;
+                _logger.LogError($"An unknown exception has occurred: {ex}");
+                throw ex;
+
+            }
 
         }
 

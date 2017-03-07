@@ -55,7 +55,7 @@ namespace Spellthis.Controllers
         public IActionResult AddWord(string word)
         {
 
-            _spellThisService.AddSpellingWord(word);
+           _spellThisService.AddSpellingWord(word);
 
             return Redirect("ViewWords");
 

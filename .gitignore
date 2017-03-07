@@ -245,3 +245,6 @@ ModelManifest.xml
 .fake/
 /src/SpellThis/wwwroot/app
 /src/SpellThis/.tscache/base/hashes
+/src/Spellthis/appsettings.json
+/src/TTSTest/test.mp3
+/src/TTSTest/appsettings.json

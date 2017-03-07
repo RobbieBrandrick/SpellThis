@@ -1,7 +1,5 @@
 ﻿using Spellthis.Models;
-using System.Collections.Generic;
 using System;
-using Microsoft.EntityFrameworkCore;
 using Spellthis.Data;
 using System.Linq;
 
