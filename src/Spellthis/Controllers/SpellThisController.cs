@@ -57,7 +57,19 @@ namespace Spellthis.Controllers
 
            _spellThisService.AddSpellingWord(word);
 
-            return Redirect("ViewWords");
+            return RedirectToAction("ViewWords");
+
+        }
+
+        /// <summary>
+        /// Removed a word from the repository
+        /// </summary>
+        public async Task<IActionResult> RemoveWord(int id)
+        {
+
+            await _spellThisService.RemoveWord(id);
+
+            return RedirectToAction("ViewWords");
 
         }
 

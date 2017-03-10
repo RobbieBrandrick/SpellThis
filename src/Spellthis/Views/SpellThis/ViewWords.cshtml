@@ -2,14 +2,14 @@
 @{
 }
 <style>
-    .glyphicon{
+    .glyphicon {
         font-size: 25px;
     }
 </style>
 <div class="row">
     <div class="col-md-12">
         <h2>
-            View Words            
+            View Words
         </h2>
         <hr />
     </div>
@@ -28,10 +28,8 @@
                     <td>
                         @Html.DisplayNameFor(model => model.AddDate)
                     </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                 </tr>
             </thead>
@@ -40,7 +38,6 @@
 
                 @foreach (var word in Model)
                 {
-
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => word.Name)
@@ -49,13 +46,18 @@
                             @Html.DisplayFor(modelItem => word.AddDate)
                         </td>
                         <td class="grid-icon">
-                            <span class="glyphicon glyphicon-play-circle" title="Pronunciate Word"></span>
+                            <span class="glyphicon glyphicon-play-circle" title="Pronunciate Word" onclick="document.getElementById('@word.Name').play();"></span>
+                            <audio id="@word.Name">
+                                <source src="@word.AudioFileWebUri" type="audio/mpeg" />
+                            </audio>
                         </td>
                         <td class="grid-icon">
-                            <span class="glyphicon glyphicon-list-alt" title="View Definition"></span>
+                            <a href="https://www.merriam-webster.com/dictionary/@word.Name" target="_blank">
+                                <span class="glyphicon glyphicon-list-alt" title="View Definition"></span>
+                            </a>
                         </td>
                         <td class="grid-icon">
-                            <span class="glyphicon glyphicon-remove" title="Remove Word"></span>
+                            <a asp-action="RemoveWord" asp-route-id="@word.Id"><span class="glyphicon glyphicon-remove" title="Remove Word"></span></a>
                         </td>
                     </tr>
 

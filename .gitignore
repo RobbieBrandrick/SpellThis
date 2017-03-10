@@ -248,3 +248,4 @@ ModelManifest.xml
 /src/Spellthis/appsettings.json
 /src/TTSTest/test.mp3
 /src/TTSTest/appsettings.json
+*.mp3

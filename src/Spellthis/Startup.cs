@@ -13,6 +13,7 @@ using Spellthis.Models;
 using Spellthis.Services;
 using Spellthis.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Spellthis
 {
@@ -58,13 +59,19 @@ namespace Spellthis
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".mp3"] = "audio/mpeg";
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                ContentTypeProvider = provider
+            });
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=SpellThis}/{action=Index}/{id?}"
+                    template: "{controller=SpellThis}/{action=ViewWords}/{id?}"
                 );
             });
 

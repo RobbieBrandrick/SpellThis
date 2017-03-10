@@ -8,9 +8,10 @@ using Spellthis.Data;
 namespace Spellthis.Migrations
 {
     [DbContext(typeof(SpellThisContext))]
-    partial class SpellThisContextModelSnapshot : ModelSnapshot
+    [Migration("20170307122751_AddedWordAudioFileLocation")]
+    partial class AddedWordAudioFileLocation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
@@ -23,8 +24,6 @@ namespace Spellthis.Migrations
                     b.Property<DateTime>("AddDate");
 
                     b.Property<string>("AudioFileLocation");
-
-                    b.Property<string>("AudioFileWebUri");
 
                     b.Property<string>("Name");
 

@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Spellthis.Models;
 using Spellthis.Repositories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Spellthis.Services
@@ -21,7 +23,14 @@ namespace Spellthis.Services
         /// Adds the spelling word to the users list
         /// </summary>
         /// <param name="word">Word to add</param>
-        Word AddSpellingWord(string word);
+        Task<Word> AddSpellingWord(string wordName);
+
+        /// <summary>
+        /// Removed a word from the repository
+        /// </summary>
+        /// <param name="id">Id of the word to remove</param>
+        /// <returns>Asynchronous Task of removing the word</returns>
+        Task RemoveWord(int id);
     }
 
     public class SpellThisService : ISpellThisService
@@ -30,28 +39,23 @@ namespace Spellthis.Services
         private IWordsRepository _wordsRepository;
         private ITextToSpeechService _ttsService;
         private ILogger _logger;
+        private IHostingEnvironment _environment;
+
+        private const string WordsAudioFileLocation = "\\Words\\AudioFiles";
 
         /// <summary>
         /// Set up classes dependencies
         /// </summary>
         public SpellThisService(IWordsRepository wordsRepository,
             ITextToSpeechService ttsService,
-            ILogger<SpellThisService> logger)
+            ILogger<SpellThisService> logger,
+            IHostingEnvironment environment)
         {
-
-            if(wordsRepository == null)
-                throw new InvalidOperationException("wordsRepository cannot be null");
-
-            if (ttsService == null)
-                throw new InvalidOperationException("ttsService cannot be null");
-
-            if (logger == null)
-                throw new InvalidOperationException("logger cannot be null");
-
 
             _wordsRepository = wordsRepository;
             _ttsService = ttsService;
             _logger = logger;
+            _environment = environment;
 
         }
 
@@ -61,7 +65,7 @@ namespace Spellthis.Services
         /// <returns>User's spelling words</returns>
         public async Task<IEnumerable<Word>> GetSpellingWords()
         {
-            
+
             try
             {
 
@@ -70,7 +74,7 @@ namespace Spellthis.Services
                 return spellingWords;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 _logger.LogError($"An unknown exception has occurred: {ex}");
@@ -83,20 +87,36 @@ namespace Spellthis.Services
         /// <summary>
         /// Adds the spelling word to the users list
         /// </summary>
-        /// <param name="word">Word to add</param>
-        public Word AddSpellingWord(string word)
+        /// <param name="wordName">Word to add</param>
+        public async Task<Word> AddSpellingWord(string wordName)
         {
 
             try
             {
 
-                if (string.IsNullOrEmpty(word))
+                if (string.IsNullOrEmpty(wordName))
                     throw new InvalidOperationException("Word must contain a value");
+
+                //If the word already exists within the repository then return it.
+                Word word = await _wordsRepository
+                    .GetAll()
+                    .FirstOrDefaultAsync(w => w.Name.Equals(wordName, StringComparison.OrdinalIgnoreCase));
+
+                if (word != null)
+                {
+                    return word;
+                }
+                
+                var newWordAudioFile = Path.Combine(_environment.WebRootPath, "Words", wordName) + ".mp3";
+
+                await _ttsService.CreateAudioFile(wordName, newWordAudioFile);
 
                 var newWord = new Word()
                 {
                     AddDate = DateTime.Now,
-                    Name = word
+                    Name = wordName,
+                    AudioFileLocation = newWordAudioFile,
+                    AudioFileWebUri = "Words/" + wordName + ".mp3"                   
                 };
 
                 _wordsRepository.Add(newWord);
@@ -104,7 +124,7 @@ namespace Spellthis.Services
                 return newWord;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 _logger.LogError($"An unknown exception has occurred: {ex}");
@@ -114,5 +134,35 @@ namespace Spellthis.Services
 
         }
 
+        /// <summary>
+        /// Removed a word from the repository
+        /// </summary>
+        /// <param name="id">Id of the word to remove</param>
+        /// <returns>Asynchronous Task of removing the word</returns>
+        public async Task RemoveWord(int id)
+        {
+
+            try
+            {
+
+                Word word = await _wordsRepository
+                    .GetAll()
+                    .FirstOrDefaultAsync(w => w.Id == id);
+
+                if (word == null)
+                    throw new InvalidOperationException("Word does not exist within the repository.");
+
+                await _wordsRepository.Remove(word);
+                
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError($"An unknown exception has occurred: {ex}");
+                throw ex;
+
+            }
+
+        }
     }
 }

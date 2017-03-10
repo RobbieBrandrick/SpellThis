@@ -11,7 +11,8 @@ namespace Spellthis.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime AddDate { get; set; }
-
+        public string AudioFileLocation { get; set; }
+        public string AudioFileWebUri { get; set; }
 
     }
 }

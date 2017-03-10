@@ -2,6 +2,7 @@
 using System;
 using Spellthis.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Spellthis.Repositories
 {
@@ -19,6 +20,13 @@ namespace Spellthis.Repositories
         /// </summary>
         /// <param name="word">Word to add to the repository</param>     
         void Add(Word word);
+
+        /// <summary>
+        /// Removed a word from the repository
+        /// </summary>
+        /// <param name="word">Word to remove</param>
+        /// <returns>Asynchronous Task of removing the word</returns>
+        Task Remove(Word word);
     }
 
     public class WordsRepository : IWordsRepository
@@ -59,6 +67,20 @@ namespace Spellthis.Repositories
         {
 
             return _dbContext.Words;
+
+        }
+
+        /// <summary>
+        /// Removed a word from the repository
+        /// </summary>
+        /// <param name="word">Word to remove</param>
+        /// <returns>Asynchronous Task of removing the word</returns>
+        public async Task Remove(Word word)
+        {
+
+            _dbContext.Words.Remove(word);
+
+            await _dbContext.SaveChangesAsync();
 
         }
     }
