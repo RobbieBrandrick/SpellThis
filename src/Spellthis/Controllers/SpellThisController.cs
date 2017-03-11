@@ -51,14 +51,15 @@ namespace Spellthis.Controllers
         /// Add a word to the service
         /// </summary>
         /// <returns>Redirects to view words</returns>
+        [AutoValidateAntiforgeryToken]
         [HttpPost]
-        public async Task<IActionResult> AddWord(string word)
+        public async Task<IActionResult> AddWord([Bind("Name")] Word word)
         {
 
             if (ModelState.IsValid)
             {
 
-                await _spellThisService.AddSpellingWord(word);
+                await _spellThisService.AddSpellingWord(word.Name);
 
                 return RedirectToAction("ViewWords");
 
@@ -66,7 +67,7 @@ namespace Spellthis.Controllers
             else
             {
 
-                return View();
+                return View(word);
 
             }
             

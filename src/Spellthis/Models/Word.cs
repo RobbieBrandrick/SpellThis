@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 namespace Spellthis.Models
 {
@@ -10,7 +7,7 @@ namespace Spellthis.Models
 
         public int Id { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$"), Required, StringLength(60)]
+        [RegularExpression(@"^([A-Z]|[a-z])+", ErrorMessage = "Please enter a single word"), Required, StringLength(60)]
         public string Name { get; set; }
 
         [Display(Name = "Add Date")]
