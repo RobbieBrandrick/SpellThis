@@ -23,21 +23,24 @@ namespace Spellthis.Data
             {
                 new Word
                 {
-                    Id = 1,
                     Name = "Curmudgeon",
-                    AddDate = DateTime.Now
+                    AddDate = DateTime.Now,
+                    AudioFileLocation = @"F:\dev\SpellThis\src\Spellthis\wwwroot\Words\Curmudgeon.mp3",
+                    AudioFileWebUri = "Words/Curmudgeon",
                 },
                 new Word
                 {
-                    Id = 2,
                     Name = "Anaphylaxis",
-                    AddDate = DateTime.Now
+                    AddDate = DateTime.Now,
+                    AudioFileLocation = @"F:\dev\SpellThis\src\Spellthis\wwwroot\Words\Anaphylaxis.mp3",
+                    AudioFileWebUri = "Words/Anaphylaxis",
                 },
                 new Word
                 {
-                    Id = 3,
                     Name = "Meteorological",
-                    AddDate = DateTime.Now
+                    AddDate = DateTime.Now,
+                    AudioFileLocation = @"F:\dev\SpellThis\src\Spellthis\wwwroot\Words\Meteorological.mp3",
+                    AudioFileWebUri = "Words/Meteorological",
                 },
             };
 

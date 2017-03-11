@@ -41,7 +41,7 @@ namespace Spellthis
             services.AddScoped<ITextToSpeechService, TextToSpeechService>();
             services.AddScoped<ISpellThisService, SpellThisService>();
 
-            services.AddDbContext<SpellThisContext>(options => options.UseSqlite("Filename=./SpellThis.db"));
+            services.AddDbContext<SpellThisContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SpellThisContext;Trusted_Connection=True;"));
 
         }
 

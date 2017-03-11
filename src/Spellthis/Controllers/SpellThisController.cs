@@ -52,12 +52,24 @@ namespace Spellthis.Controllers
         /// </summary>
         /// <returns>Redirects to view words</returns>
         [HttpPost]
-        public IActionResult AddWord(string word)
+        public async Task<IActionResult> AddWord(string word)
         {
 
-           _spellThisService.AddSpellingWord(word);
+            if (ModelState.IsValid)
+            {
 
-            return RedirectToAction("ViewWords");
+                await _spellThisService.AddSpellingWord(word);
+
+                return RedirectToAction("ViewWords");
+
+            }
+            else
+            {
+
+                return View();
+
+            }
+            
 
         }
 
