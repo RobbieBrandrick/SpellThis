@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{147D9E3F-6B6F-40B0-A11B-ABE0D2B139BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0DB242A6-978A-421F-97C1-54F479C17487}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Spellthis", "src\Spellthis\Spellthis.xproj", "{172C4C0C-1FEA-4AFC-A3D1-95C6098CA2E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spellthis", "src\Spellthis\Spellthis.csproj", "{172C4C0C-1FEA-4AFC-A3D1-95C6098CA2E3}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTSTest", "src\TTSTest\TTSTest.xproj", "{CF21A500-4E08-4B92-AAE6-6E025C8D566F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTSTest", "src\TTSTest\TTSTest.csproj", "{CF21A500-4E08-4B92-AAE6-6E025C8D566F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
