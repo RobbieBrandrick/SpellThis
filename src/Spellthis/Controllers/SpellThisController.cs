@@ -24,6 +24,11 @@ namespace Spellthis.Controllers
 
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         /// <summary>
         /// View the users words
         /// </summary>

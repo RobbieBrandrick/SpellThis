@@ -14,6 +14,8 @@ using Spellthis.Services;
 using Spellthis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Spellthis.Models.Account;
 
 namespace Spellthis
 {
@@ -42,7 +44,9 @@ namespace Spellthis
             services.AddScoped<ISpellThisService, SpellThisService>();
 
             services.AddDbContext<SpellThisContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SpellThisContext;Trusted_Connection=True;"));
-
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<SpellThisContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +80,8 @@ namespace Spellthis
             });
 
             SpellThisDbInitializer.Initialize(spellThisContext);
+
+            
 
         }
 
