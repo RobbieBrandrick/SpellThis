@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
+    @await Html.PartialAsync("_LoginPartial")
     <div class="container">
         @RenderBody()
     </div>
