@@ -8,9 +8,10 @@ using Spellthis.Data;
 namespace Spellthis.Migrations
 {
     [DbContext(typeof(SpellThisContext))]
-    partial class SpellThisContextModelSnapshot : ModelSnapshot
+    [Migration("20170316111453_AddedIdentity")]
+    partial class AddedIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

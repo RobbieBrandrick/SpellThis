@@ -87,10 +87,52 @@ namespace Spellthis.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+            //await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        {
+
+            ViewData["ReturnUrl"] = returnUrl;
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+
+                _logger.LogInformation($"{model.Email} logged in");
+
+                return RedirectToLocal(returnUrl);
+
+            }
+            else if (result.IsLockedOut)
+            {
+
+                _logger.LogWarning($"{model.Email} locked out.");
+
+                return View("Lockout");
+
+            }
+            else
+            {
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+
+                return View(model);
+
+            }
+
         }
 
         private void AddErrorsToModelState(IdentityResult result)
