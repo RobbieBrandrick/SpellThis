@@ -5,17 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Spellthis.Migrations
 {
-    public partial class AddedIdentity : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "Words",
-                nullable: false,
-                oldClrType: typeof(int))
-                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -67,6 +60,22 @@ namespace Spellthis.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Words",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AddDate = table.Column<DateTime>(nullable: false),
+                    AudioFileLocation = table.Column<string>(nullable: true),
+                    AudioFileWebUri = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 60, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Words", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,17 +220,13 @@ namespace Spellthis.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Words");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "Words",
-                nullable: false,
-                oldClrType: typeof(int))
-                .OldAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }
     }
 }

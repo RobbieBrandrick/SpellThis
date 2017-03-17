@@ -8,8 +8,8 @@ using Spellthis.Data;
 namespace Spellthis.Migrations
 {
     [DbContext(typeof(SpellThisContext))]
-    [Migration("20170316111453_AddedIdentity")]
-    partial class AddedIdentity
+    [Migration("20170317110258_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
