@@ -135,6 +135,39 @@ namespace Spellthis.Controllers
 
         }
 
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public IActionResult ForgotPassword()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        //{
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    var user = await _userManager.FindByEmailAsync(model.Email);
+
+        //    if(user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+        //    {
+        //        return View("ForgotPasswordConfirmation");
+        //    }
+
+        //    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+        //    var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+        //    await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+        //       $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+        //    return View("ForgotPasswordConfirmation");
+
+        //}
+
         private void AddErrorsToModelState(IdentityResult result)
         {
             foreach (var error in result.Errors)
