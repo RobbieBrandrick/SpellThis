@@ -146,7 +146,7 @@ namespace Spellthis.Controllers
 
             _logger.LogInformation($"User ({userEmail}) logged out.");
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(SpellThisController.Home), "SpellThis");
 
         }
 
@@ -199,7 +199,7 @@ namespace Spellthis.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(SpellThisController.Index), "Home");
+                return RedirectToAction(nameof(SpellThisController.Home), "SpellThis");
             }
         }
 

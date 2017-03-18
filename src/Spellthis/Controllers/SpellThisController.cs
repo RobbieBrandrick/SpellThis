@@ -24,7 +24,7 @@ namespace Spellthis.Controllers
 
         }
 
-        public IActionResult Index()
+        public IActionResult Home()
         {
             return View();
         }

@@ -4,18 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Spell This</title>
+    <title>Spell This - @ViewData["Title"]</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    @await Html.PartialAsync("_LoginPartial")
+
+    @await Html.PartialAsync("_NavigationPartial")
+
     <div class="container">
         @RenderBody()
     </div>
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>
