@@ -5,9 +5,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Spellthis.Models.Account;
 using Spellthis.ViewModels.Account;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Spellthis.Controllers

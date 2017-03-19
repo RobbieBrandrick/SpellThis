@@ -14,6 +14,7 @@ namespace Spellthis.Data
         }
 
         public DbSet<Word> Words { get; set; }
+        public DbSet<UserWord> UserWords { get; set; }
 
     }
 }

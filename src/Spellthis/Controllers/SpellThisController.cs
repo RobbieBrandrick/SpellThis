@@ -4,26 +4,33 @@ using Microsoft.AspNetCore.Mvc;
 using Spellthis.Models;
 using Spellthis.Services;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Spellthis.Models.Account;
 
 namespace Spellthis.Controllers
 {
+    [Authorize]
     public class SpellThisController : Controller
     {
 
         private ISpellThisService _spellThisService;
+        private UserManager<ApplicationUser> _userManager;
 
         /// <summary>
         /// Set up the controllers dependencies
         /// </summary>
-        public SpellThisController(ISpellThisService spellThisService)
+        public SpellThisController(
+            ISpellThisService spellThisService,
+            UserManager<ApplicationUser> userManager)
         {
 
-            if (spellThisService == null) throw new InvalidOperationException("spellThisService cannot be null");
-
             _spellThisService = spellThisService;
+            _userManager = userManager;
 
         }
 
+        [AllowAnonymous]
         public IActionResult Home()
         {
             return View();
@@ -36,7 +43,9 @@ namespace Spellthis.Controllers
         public async Task<IActionResult> ViewWords()
         {
 
-            IEnumerable<Word> words = await _spellThisService.GetSpellingWords();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            IEnumerable<Word> words = await _spellThisService.GetSpellingWords(user.Id);
 
             return View(words);
 
@@ -64,7 +73,9 @@ namespace Spellthis.Controllers
             if (ModelState.IsValid)
             {
 
-                await _spellThisService.AddSpellingWord(word.Name);
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                await _spellThisService.AddSpellingWord(word.Name, user.Id);
 
                 return RedirectToAction("ViewWords");
 
@@ -85,7 +96,9 @@ namespace Spellthis.Controllers
         public async Task<IActionResult> RemoveWord(int id)
         {
 
-            await _spellThisService.RemoveWord(id);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            await _spellThisService.RemoveWord(id, user.Id);
 
             return RedirectToAction("ViewWords");
 

@@ -15,5 +15,7 @@ namespace Spellthis.Models
         public string AudioFileLocation { get; set; }
         public string AudioFileWebUri { get; set; }
 
+        public virtual UserWord UserWord { get; set; }
+
     }
 }
