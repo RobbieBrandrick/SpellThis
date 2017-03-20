@@ -1,3 +1,8 @@
+@using Microsoft.AspNetCore.Identity
+@using Spellthis.Models.Account
+
+@inject SignInManager<ApplicationUser> SignInManager
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -12,8 +17,12 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a asp-area="" asp-controller="SpellThis" asp-action="Home">Home</a></li>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
                 <li><a asp-area="" asp-controller="SpellThis" asp-action="ViewWords">View Words</a></li>
                 <li><a asp-area="" asp-controller="SpellThis" asp-action="AddWord">Add Word</a></li>
+            }
             </ul>
             @await Html.PartialAsync("_LoginPartial")
         </div>

@@ -1,5 +1,19 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity;
+@using Spellthis.Models.Account;
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Home";
 }
+<h4>@ViewData["Title"]</h4>
+<div class="row">
+    <div class="col-sm-12">
+
+        Spell this is an educational game that allows users to add spelling words and then practice them periodically.
+
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-12">
         <div>
@@ -7,10 +21,30 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-12">
-        <div>
-            <!--Game Buttons-->
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <a asp-action="Play" id="btn btn-primary">Play</a>
+            </div>
         </div>
     </div>
-</div>
+
+}
+else
+{
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <a asp-controller="Account" asp-action="Login" id="btn btn-primary">Login</a>
+                <a asp-controller="Account" asp-action="Register" id="btn btn-primary">Register</a>
+            </div>
+        </div>
+    </div>
+
+}
+
